@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const CoachSchema = new Schema({
   name: {
     type: String,
-    minlenth:  [3, "too short"],
+    minlength: [3, "too short"],
     maxlength: [15, "too long"],
     required: true,
   },
@@ -19,14 +19,14 @@ const UserSchema = new Schema({
     enum: ["Male", "Female"],
     required: true,
   },
-  experience: {
+  specialization: {
     type: String,
-    enum: ["Begginer", "Mid", "Expert"],
+    enum: ["Personal Trainer", "Danceing", "Martial Arts"],
+    required: true,
   },
-  date: {
+  Date: {
     type: Date,
     default: Date.now,
   },
 });
-
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = Coach = mongoose.model("coaches", CoachSchema);

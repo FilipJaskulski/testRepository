@@ -5,9 +5,8 @@ const ProfileSchema = new Schema({
   user: [
     {
       type: Schema.Types.ObjectId,
-      ref: "users",
-    },
-  ],
+      ref: "users"
+    }],
   email: {
     type: String,
     required: true,

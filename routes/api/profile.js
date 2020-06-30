@@ -6,7 +6,7 @@ router
   .route("/client")
   .get((req, res, next) => {
     Profile.find()
-      .populate("user", ["name"])
+      .populate("user", ["name"], ["age"], ["sex"], ["experience"]) // czy to jest ok?
       .then((profiles) => {
         return res.json(profiles);
       });
@@ -35,7 +35,7 @@ router
     });
   })
   .put((req, res, next) => {
-    Profile.findByIdAndUpdate(req.body.id, { email: req.body.email })
+    Profile.findByIdAndUpdate(req.body.id, { email: req.body.email } || {isActive: req.body.isActive})
     .then((profile) => {
         if (profile) {
           return res.json({ success: true });

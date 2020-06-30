@@ -14,9 +14,13 @@ router
     const userData = {};
     if (req.body.name) userData.name = req.body.name;
     if (req.body.age) userData.age = req.body.age;
+    if(req.body.sex) userData.sex = req.body.sex;
+    if(req.body.experience) userData.experience = req.body.experience;
     User.findOne({ _id: req.body.id }).then((user) => {
       user.name = req.body.name;
       user.age = req.body.age;
+      user.sex = req.body.sex;
+      user.experience = req.body.experience;
       user.save().then((user) => {
         res.json(user);
       });
