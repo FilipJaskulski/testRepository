@@ -3,19 +3,15 @@ const router = express.Router();
 const Training = require("../../models/Training");
 
 router
-  .route("/client")
+  .route("/training")
   .get((req, res, next) => {
     Training.find()
       .populate(
         "user",
-        ["name"],
-        ["age"],
-        ["sex"],
-        ["experience"],
+        ["name", "age", "sex", "experience"],
         "training",
-        ["category"],
-        ["isDone"]
-      ) //czy to jest ok?
+        ["category", "isDone"] 
+      ) 
       .then((trainings) => {
         return res.json(trainings);
       });

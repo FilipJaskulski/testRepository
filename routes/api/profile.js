@@ -6,7 +6,7 @@ router
   .route("/client")
   .get((req, res, next) => {
     Profile.find()
-      .populate("user", ["name"], ["age"], ["sex"], ["experience"]) // czy to jest ok?
+      .populate("user", ["name", "age", "sex", "experience"]) 
       .then((profiles) => {
         return res.json(profiles);
       });
@@ -14,8 +14,7 @@ router
   .post((req, res, next) => {
     console.log(req.body);
     const profileData = {};
-    Profile.findOne({ _id: req.body.id })
-    .then((profile) => {
+    Profile.findOne({ _id: req.body.id }).then((profile) => {
       if (!profile) {
         if (req.body.email) profileData.email = req.body.email;
         if (req.body.isActive) profileData.isActive = req.body.isActive;
@@ -35,14 +34,15 @@ router
     });
   })
   .put((req, res, next) => {
-    Profile.findByIdAndUpdate(req.body.id, { email: req.body.email } || {isActive: req.body.isActive})
-    .then((profile) => {
-        if (profile) {
-          return res.json({ success: true });
-        }
-        return res.json({ succes: false });
+    Profile.findByIdAndUpdate(
+      req.body.id,
+      { email: req.body.email } || { isActive: req.body.isActive }
+    ).then((profile) => {
+      if (profile) {
+        return res.json({ success: true });
       }
-    );
+      return res.json({ succes: false });
+    });
   })
   .delete((req, res, next) => {
     Profile.findByIdAndDelete(req.body.id)
