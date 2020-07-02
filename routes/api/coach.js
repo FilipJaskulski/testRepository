@@ -12,24 +12,25 @@ router
   .post((req, res, next) => {
     console.log(req.body);
     const coachData = {};
-    if (req.body.name) coachData.name = req.body.name;
-    if (req.body.age) coachData.age = req.body.age;
-    if (req.body.sex) coachData.sex = req.body.sex;
-    if (req.body.specialization) coachData.specialization = req.body.specialization;
-    Coach.findOne({ _id: req.body.id }).then((coach) => {
-      coach.name = req.body.name;
-      coach.age = req.body.age;
-      coach.sex = req.body.sex;
-      coach.specialization = req.body.specialization;
-      coach.save().then((coach) => {
-        res.json(coach);
-      });
-    });
-    const newCoach = new Coach(coachData);
-    newCoach
-      .save()
+    Coach.findOne({ _id: req.body.id })
       .then((coach) => {
-        res.json(coach);
+        if (!coach) {
+          if (req.body.name) coachData.name = req.body.name;
+          if (req.body.age) coachData.age = req.body.age;
+          if (req.body.gender) coachData.gender = req.body.gender;
+          if (req.body.specialization) coachData.specialization = req.body.specialization;
+          const newCoach = new Coach(coachData);
+          newCoach
+            .save()
+            .then((coach) => {
+              return res.json(coach);
+            })
+            .catch((err) => console.log(err));
+        } else {
+          return res
+            .status(400)
+            .json({ error: "User for this user already exists" });
+        }
       })
       .catch((err) => console.log(err));
   })

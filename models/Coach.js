@@ -14,7 +14,7 @@ const CoachSchema = new Schema({
     max: [99, "too long"],
     required: true,
   },
-  sex: {
+  gender: {
     type: String,
     enum: ["Male", "Female"],
     required: true,

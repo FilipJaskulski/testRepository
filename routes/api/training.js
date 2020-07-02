@@ -23,7 +23,6 @@ router
       if (!training) {
         if (req.body.category) trainingData.category = req.body.category;
         if (req.body.isDone) trainingData.isDone = req.body.isDone;
-
         const newTraining = new Training(trainingData);
         newTraining
           .save()
