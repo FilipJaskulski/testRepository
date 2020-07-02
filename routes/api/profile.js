@@ -6,7 +6,7 @@ router
   .route("/client")
   .get((req, res, next) => {
     Profile.find()
-      .populate("user", ["name", "age", "sex", "experience"])
+      .populate("user", ["name", "age", "gender", "experience"])
       .then((profiles) => {
         return res.json(profiles);
       });

@@ -8,7 +8,7 @@ router
     Training.find()
       .populate(
         "user",
-        ["name", "age", "sex", "experience"],
+        ["name", "age", "gender", "experience"],
         "training",
         ["category", "isDone"] 
       ) 
